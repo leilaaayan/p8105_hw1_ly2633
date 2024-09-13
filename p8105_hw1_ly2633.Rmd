@@ -2,26 +2,71 @@
 title: "p8105_hw1_ly2633"
 author: "Leila Yan"
 date: "2024-09-13"
-output: html_document
+output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r}
+# load the libraries
+library(tidyverse)
 ```
 
-## R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Problem 1
+```{r}
+# Load the dataset
+data("penguins", package = "palmerpenguins")
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+# Calculate the mean flipper length
+mean_flipper_length <- mean(penguins$flipper_length_mm, na.rm = TRUE)
 ```
 
-## Including Plots
+Write a short description of the penguins dataset (not the penguins_raw dataset) using inline R code. In your discussion, please include:
+- the data in this dataset, including names / values of important variables
+- the size of the dataset (using nrow and ncol)
+- the mean flipper length
 
-You can also embed plots, for example:
+-200.915
+
+Make a scatterplot of flipper_length_mm (y) vs bill_length_mm (x); color points using the species variable (adding color = ... inside of aes in your ggplot code should help).
+Export your first scatterplot to your project directory using ggsave.
+
+```{r}
+# Create a scatterplot
+ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) +
+  geom_point() +
+  labs(
+    title = "Scatterplot of Flipper Length vs Bill Length",
+    x = "Bill Length (mm)",
+    y = "Flipper Length (mm)"
+  ) +
+  theme_minimal()
+
+# Export my scatterplot to my project directory
+ggsave("scatterplot_flipper_vs_bill.png")
+```
+
+
+
+
+
+
+## Problem 2
+
+This problem is intended to emphasize variable types and introduce coercion; some awareness of how R treats numeric, character, and factor variables is necessary for working with these data types in practice.
+
+Create a data frame comprised of:
+
+a random sample of size 10 from a standard Normal distribution
+a logical vector indicating whether elements of the sample are greater than 0
+a character vector of length 10
+a factor vector of length 10, with 3 different factor “levels”
+Try to take the mean of each variable in your dataframe. What works and what doesn’t?
+
+Hint: to take the mean of a variable in a dataframe, you need to pull the variable out of the dataframe. Try loading the tidyverse and using the pull function.
+
+In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens, and why? Does this help explain what happens when you try to take the mean?
+
+
 
 ```{r pressure, echo=FALSE}
 plot(pressure)
