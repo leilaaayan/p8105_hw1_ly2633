@@ -62,6 +62,8 @@ a character vector of length 10
 a factor vector of length 10, with 3 different factor “levels”
 Try to take the mean of each variable in your dataframe. What works and what doesn’t?
 
+
+
 Hint: to take the mean of a variable in a dataframe, you need to pull the variable out of the dataframe. Try loading the tidyverse and using the pull function.
 
 In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens, and why? Does this help explain what happens when you try to take the mean?
