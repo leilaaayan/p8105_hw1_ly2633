@@ -17,7 +17,9 @@ library(tidyverse)
 data("penguins", package = "palmerpenguins")
 
 # Calculate the mean flipper length
-mean_flipper_length <- mean(penguins$flipper_length_mm, na.rm = TRUE)
+mean_flipper_length <- penguins %>%
+  pull(flipper_length_mm) %>%
+  mean(na.rm = TRUE)
 ```
 
 Write a short description of the penguins dataset (not the penguins_raw dataset) using inline R code. In your discussion, please include:
@@ -46,10 +48,6 @@ ggsave("scatterplot_flipper_vs_bill.png")
 ```
 
 
-test run 
-
-
-
 ## Problem 2
 
 This problem is intended to emphasize variable types and introduce coercion; some awareness of how R treats numeric, character, and factor variables is necessary for working with these data types in practice.
@@ -61,17 +59,40 @@ a logical vector indicating whether elements of the sample are greater than 0
 a character vector of length 10
 a factor vector of length 10, with 3 different factor “levels”
 Try to take the mean of each variable in your dataframe. What works and what doesn’t?
-
-
-
 Hint: to take the mean of a variable in a dataframe, you need to pull the variable out of the dataframe. Try loading the tidyverse and using the pull function.
+```{r}
+# Create data frame
+problem2_df = tibble (
+  vec_numeric= 1:10,
+  vec_char = c ("cancer", "recurrence", "demographics", "environment", "genetic", "age", "sex", "ethnicity", "comorbidity", "medication"),
+# which element is greater than 0?
+  vec_logical= c(TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE),
+  vec_factor = factor(c("small", "medium", "large", "small", "small", "medium", "large", "small", "large", "medium"))
+)
+
+problem2_df
+
+# taking the mean of each variable
+# vec_numeric
+mean_numeric <- problem2_df %>%
+  pull(vec_numeric) %>%
+  mean(na.rm = TRUE)
+# 5.5
+
+#vec_logical
+mean_logical <- problem2_df %>%
+  pull(vec_logical) %>%
+  mean(na.rm = TRUE)
+# 0.6
+```
+Answer:
+vec_char and vec_factor: You cannot calculate the mean of character or factor variables. If you attempt to calculate the mean of these types, you will get an error.
 
 In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens, and why? Does this help explain what happens when you try to take the mean?
-
-
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+logical_as_numeric <- as.numeric(problem2_df$vec_logical)
+char_as_numeric <- as.numeric(problem2_df$vec_char)
+factor_as_numeric <- as.numeric(problem2_df$vec_factor)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
