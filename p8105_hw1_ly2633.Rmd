@@ -27,7 +27,10 @@ Write a short description of the penguins dataset (not the penguins_raw dataset)
 - the size of the dataset (using nrow and ncol)
 - the mean flipper length
 
--200.915
+Answer:
+This dataset consists of 8 variables and they are: species, island, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, sex, and year (ncol=8). It contains 344 entries (nrow=344). It provides us with information about different species of penguins (eg.Adelie, Gentoo, and Chinastrap) and islands, their sex, year, as well as some measurements of their weight, flipper length, bill length and bill depth. From the dataset, we can also see there are some missing data, as NA. The mean flipper length is 200.915 mm.
+
+
 
 Make a scatterplot of flipper_length_mm (y) vs bill_length_mm (x); color points using the species variable (adding color = ... inside of aes in your ggplot code should help).
 Export your first scatterplot to your project directory using ggsave.
