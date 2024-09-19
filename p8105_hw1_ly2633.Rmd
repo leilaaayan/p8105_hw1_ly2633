@@ -88,7 +88,7 @@ mean_logical <- problem2_df %>%
   mean(na.rm = TRUE)
 # 0.6
 ```
-testrun
+test run
 
 Answer:
 vec_char and vec_factor: You cannot calculate the mean of character or factor variables. If you attempt to calculate the mean of these types, you will get an error.
