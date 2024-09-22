@@ -64,21 +64,19 @@ Hint: to take the mean of a variable in a dataframe, you need to pull the variab
 ```{r}
 # Create data frame
 problem2_df = tibble (
-  vec_numeric= 1:10,
+  randomsample= rnorm(10),
   vec_char = c ("cancer", "recurrence", "demographics", "environment", "genetic", "age", "sex", "ethnicity", "comorbidity", "medication"),
-# which element is greater than 0?
-  vec_logical= c(TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, FALSE, TRUE, FALSE, FALSE),
+  vec_logical= rnorm(10) > 0,
   vec_factor = factor(c("small", "medium", "large", "small", "small", "medium", "large", "small", "large", "medium"))
 )
 
 problem2_df
 
 # taking the mean of each variable
-# vec_numeric
-mean_numeric <- problem2_df %>%
-  pull(vec_numeric) %>%
+# a randomsample
+randomsample <- problem2_df %>%
+  pull(randomsample) %>%
   mean(na.rm = TRUE)
-# 5.5
 
 #vec_logical
 mean_logical <- problem2_df %>%
@@ -96,9 +94,8 @@ mean_char <- problem2_df %>%
   pull(vec_char) %>%
   mean(na.rm = TRUE)
 ```
-
-Answer:
-vec_numeric worked, it computed the average based on the numeric inputs. vec_char and vec_factor: You cannot calculate the mean of character or factor variables. If you attempt to calculate the mean of these types, you will get an error.
+Answer: 
+randomsample worked, it computed the average based on the numeric inputs. vec_char and vec_factor: You cannot calculate the mean of character or factor variables. If you attempt to calculate the mean of these types, you will get an error.
 
 
 In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens, and why? Does this help explain what happens when you try to take the mean?
@@ -109,5 +106,3 @@ print(as.numeric(problem2_df$vec_factor))
 
 ```
 What happened was when you convert a logical vector to numeric, the values TRUE/FALSE are converted to 1 and 0 respectively. When you convert a character vector to numeric, R cannot interpret the character strings as numbers, so it replaces them with NA values and spit out a warning: "NAs introduced by coercion." When you convert a factor vector to numeric, R returns the underlying integer codes that represent the factor levels, not the actual level names. In this case, high, low, medium are represented by 1, 2, 3. This happened because when you convert a factor to numeric, R gives you the internal integer codes representing the factor's levels, which may not have any meaningful interpretation in terms of the original factor labels. This does help explain what happens when I'm try to take the mean. Essentially, the mean of a factor converted to numeric is the average of the internal integer codes of the factor levels. This value can be misleading or meaningless because those numeric codes are simply R's way of organizing the factor levels—they don't reflect actual numeric values of the categories.
-
-
